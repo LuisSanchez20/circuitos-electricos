@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Ejercicios</title>
+
+    <style>
+        body {
+            font-family: "Segoe UI", Arial, sans-serif;
+            margin: 0;
+            background: linear-gradient(135deg, #dbeafe, #f8fafc);
+            color: #1f2933;
+        }
+
+        h1 {
+            text-align: center;
+            margin-top: 40px;
+            font-size: 52px;
+            font-weight: 900;
+            background: linear-gradient(135deg, #1e3a8a, #2563eb);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: 3px;
+        }
+
+        .titulo-linea {
+            width: 140px;
+            height: 6px;
+            background: linear-gradient(135deg, #2563eb, #1e40af);
+            margin: 15px auto 30px;
+            border-radius: 6px;
+        }
+
+        .descripcion {
+            text-align: center;
+            max-width: 900px;
+            margin: 0 auto 40px;
+            font-size: 17px;
+        }
+
+        section {
+            padding: 30px 20px;
+        }
+
+        .interactivo {
+            display: flex;
+            gap: 40px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .circuito {
+            background: white;
+            padding: 25px;
+            border-radius: 16px;
+            width: 260px;
+            text-align: center;
+            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+        }
+
+        .circuito img {
+            width: 200px;
+            height: 150px;
+            object-fit: contain;
+            margin-bottom: 10px;
+        }
+
+        input, select {
+            padding: 10px;
+            width: 90%;
+            margin-top: 10px;
+            border-radius: 8px;
+            border: 1px solid #9ca3af;
+        }
+
+        button {
+            margin-top: 12px;
+            padding: 10px 18px;
+            border: none;
+            border-radius: 8px;
+            background: linear-gradient(135deg, #2563eb, #1e40af);
+            color: white;
+            cursor: pointer;
+        }
+
+        button:hover {
+            opacity: 0.9;
+        }
+
+        .resultado {
+            margin-top: 10px;
+            font-weight: bold;
+        }
+
+        @media (max-width: 600px) {
+            h1 {
+                font-size: 38px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<section>
+<div style="text-align:center; margin-bottom:30px;">
+    <a href="index.html">
+        <button>Volver a la teoría</button>
+    </a>
+</div>    
+
+<h1>Identifica los Circuitos</h1>
+<div class="titulo-linea"></div>
+
+<p class="descripcion">
+    Observa cada imagen y escribe el nombre correcto del tipo de circuito.
+</p>
+
+<div class="interactivo">
+    <div class="circuito">
+        <img src="https://galanistaenredandose.wordpress.com/wp-content/uploads/2013/07/circuitos-en-serie.png?w=300">
+        <input type="text" id="c1" placeholder="Escribe tipo de circuito">
+        <div class="resultado" id="r1"></div>
+    </div>
+
+    <div class="circuito">
+        <img src="https://galanistaenredandose.wordpress.com/wp-content/uploads/2013/07/20070924klpcnafyq_222-ges-sco.png">
+        <input type="text" id="c2" placeholder="Escribe tipo de circuito">
+        <div class="resultado" id="r2"></div>
+    </div>
+
+    <div class="circuito">
+        <img src="https://electronicaonline.net/wp-content/uploads/2020/08/circuito-mixto.jpg">
+        <input type="text" id="c3" placeholder="Escribe tipo de circuito">
+        <div class="resultado" id="r3"></div>
+    </div>
+</div>
+</section>
+
+<section>
+<h1>Relaciona los Circuitos</h1>
+<div class="titulo-linea"></div>
+
+<p class="descripcion">
+    Relaciona cada tipo de circuito con su característica principal.
+</p>
+
+<div class="interactivo">
+    <div class="circuito">
+        <p><strong>Circuito en Serie</strong></p>
+        <select id="rel1">
+            <option value="">Selecciona</option>
+            <option value="a">La corriente se divide</option>
+            <option value="b">Si uno falla todo se interrumpe</option>
+            <option value="c">Combina ambos</option>
+        </select>
+    </div>
+
+    <div class="circuito">
+        <p><strong>Circuito en Paralelo</strong></p>
+        <select id="rel2">
+            <option value="">Selecciona</option>
+            <option value="a">Voltaje igual</option>
+            <option value="b">Un solo camino</option>
+            <option value="c">Complejo</option>
+        </select>
+    </div>
+
+    <div class="circuito">
+        <p><strong>Circuito Mixto</strong></p>
+        <select id="rel3">
+            <option value="">Selecciona</option>
+            <option value="a">Solo casas</option>
+            <option value="b">Sencillo</option>
+            <option value="c">Serie y paralelo</option>
+        </select>
+    </div>
+</div>
+
+<div style="text-align:center; margin-top:20px;">
+    <button onclick="verificarRelacion()">Verificar ejercicios</button>
+    <button onclick="reiniciarEjercicios()">Reiniciar ejercicios</button>
+    <div class="resultado" id="resultadoRelacion"></div>
+    <div class="resultado" id="puntajeFinal">Puntaje final: 0 / 4</div>
+    <div class="resultado" id="mensajeFinal" style="color:green; font-size:18px; margin-top:10px;"></div>
+</div>
+</section>
+
+<script>
+let puntaje = 0;
+let respondidos = { c1:false, c2:false, c3:false, rel:false };
+
+function normalizar(texto) {
+    return texto.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+}
+
+function verificarRelacion() {
+    // Reiniciar resultados anteriores
+    document.getElementById("r1").textContent = "";
+    document.getElementById("r2").textContent = "";
+    document.getElementById("r3").textContent = "";
+    document.getElementById("resultadoRelacion").textContent = "";
+
+    puntaje = 0;
+    respondidos = { c1:false, c2:false, c3:false, rel:false };
+
+    // Verificar circuitos escritos
+    let c1 = normalizar(document.getElementById("c1").value);
+    let c2 = normalizar(document.getElementById("c2").value);
+    let c3 = normalizar(document.getElementById("c3").value);
+
+    if (c1.includes("serie")) { puntaje++; document.getElementById("r1").textContent="✅ Correcto"; document.getElementById("r1").style.color="green"; }
+    else { document.getElementById("r1").textContent="❌ Incorrecto"; document.getElementById("r1").style.color="red"; }
+
+    if (c2.includes("paralelo")) { puntaje++; document.getElementById("r2").textContent="✅ Correcto"; document.getElementById("r2").style.color="green"; }
+    else { document.getElementById("r2").textContent="❌ Incorrecto"; document.getElementById("r2").style.color="red"; }
+
+    if (c3.includes("mixto")) { puntaje++; document.getElementById("r3").textContent="✅ Correcto"; document.getElementById("r3").style.color="green"; }
+    else { document.getElementById("r3").textContent="❌ Incorrecto"; document.getElementById("r3").style.color="red"; }
+
+    // Verificar relación de circuitos
+    let r1 = document.getElementById("rel1").value;
+    let r2 = document.getElementById("rel2").value;
+    let r3 = document.getElementById("rel3").value;
+
+    if (r1 === "" || r2 === "" || r3 === "") {
+        document.getElementById("resultadoRelacion").textContent = "⚠️ Completa todas las relaciones";
+        document.getElementById("resultadoRelacion").style.color = "orange";
+    } else if (r1 === "b" && r2 === "a" && r3 === "c") {
+        puntaje++;
+        document.getElementById("resultadoRelacion").textContent = "✅ Todas las relaciones son correctas";
+        document.getElementById("resultadoRelacion").style.color = "green";
+    } else {
+        document.getElementById("resultadoRelacion").textContent = "❌ Hay relaciones incorrectas";
+        document.getElementById("resultadoRelacion").style.color = "red";
+    }
+
+    document.getElementById("puntajeFinal").textContent = "Puntaje final: " + puntaje + " / 4";
+}
+
+function reiniciarEjercicios() {
+    document.getElementById("c1").value = "";
+    document.getElementById("c2").value = "";
+    document.getElementById("c3").value = "";
+    document.getElementById("rel1").value = "";
+    document.getElementById("rel2").value = "";
+    document.getElementById("rel3").value = "";
+    document.getElementById("r1").textContent = "";
+    document.getElementById("r2").textContent = "";
+    document.getElementById("r3").textContent = "";
+    document.getElementById("resultadoRelacion").textContent = "";
+    document.getElementById("puntajeFinal").textContent = "Puntaje final: 0 / 4";
+    puntaje = 0;
+}
+</script>
+
+</body>
+</html>
