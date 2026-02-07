@@ -12,7 +12,6 @@
             color: #1f2933;
         }
 
-        /* ===== TÍTULO ===== */
         h1 {
             text-align: center;
             margin-top: 40px;
@@ -40,10 +39,9 @@
         }
 
         section {
-            padding: 20px;
+            padding: 30px 20px;
         }
 
-        /* ===== DIAGRAMA ===== */
         .diagrama {
             display: flex;
             flex-direction: column;
@@ -70,7 +68,6 @@
             padding-left: 20px;
         }
 
-        /* ===== LÍNEAS ===== */
         svg {
             width: 100%;
             max-width: 900px;
@@ -84,7 +81,6 @@
             opacity: 0.8;
         }
 
-        /* ===== CUADROS ===== */
         .contenedor-cuadros {
             display: flex;
             gap: 30px;
@@ -111,11 +107,6 @@
             color: #1d4ed8;
         }
 
-        .cuadro ul {
-            padding-left: 18px;
-        }
-
-        /* ===== INTERACTIVO ===== */
         .interactivo {
             display: flex;
             gap: 40px;
@@ -136,9 +127,10 @@
             width: 200px;
             height: 150px;
             object-fit: contain;
+            margin-bottom: 10px;
         }
 
-        input {
+        input, select {
             padding: 10px;
             width: 90%;
             margin-top: 10px;
@@ -156,9 +148,19 @@
             cursor: pointer;
         }
 
+        button:hover {
+            opacity: 0.9;
+        }
+
         .resultado {
             margin-top: 10px;
             font-weight: bold;
+        }
+
+        @media (max-width: 600px) {
+            h1 {
+                font-size: 38px;
+            }
         }
     </style>
 </head>
@@ -194,44 +196,32 @@
         <div class="contenedor-cuadros">
 
             <div class="cuadro">
-                <h3>Circuito en Paralelo</h3>
-                <p>
-                    En un circuito en paralelo, los componentes se conectan en diferentes ramas,
-                    permitiendo que la corriente se divida.
-                </p>
+                <h3>Circuito en Serie</h3>
                 <ul>
-                    <li>El voltaje es el mismo en todas las ramas.</li>
-                    <li>La corriente se divide entre los caminos.</li>
-                    <li>Si un componente falla, los demás siguen funcionando.</li>
-                    <li>Se usa en instalaciones domésticas.</li>
+                    <li>La corriente es la misma en todos los componentes.</li>
+                    <li>El voltaje se reparte.</li>
+                    <li>Si uno falla, todo se interrumpe.</li>
+                    <li>Es sencillo.</li>
+                </ul>
+            </div>
+
+            <div class="cuadro">
+                <h3>Circuito en Paralelo</h3>
+                <ul>
+                    <li>El voltaje es el mismo.</li>
+                    <li>La corriente se divide.</li>
+                    <li>Los demás siguen funcionando.</li>
+                    <li>Uso doméstico.</li>
                 </ul>
             </div>
 
             <div class="cuadro">
                 <h3>Circuito Mixto</h3>
-                <p>
-                    El circuito mixto combina conexiones en serie y en paralelo dentro de un mismo sistema,
-                    aprovechando las ventajas de ambos tipos.
-                </p>
                 <ul>
-                    <li>Permite mayor control del voltaje y la corriente.</li>
-                    <li>Es el más utilizado en la vida real.</li>
-                    <li>Se encuentra en casas, edificios y aparatos electrónicos.</li>
-                    <li>Es más complejo, pero más eficiente.</li>
-                </ul>
-            </div>
-
-            <div class="cuadro">
-                <h3>Circuito en Serie</h3>
-                <p>
-                    Un circuito en serie es aquel en el que los componentes están conectados
-                    uno después del otro, formando un solo camino para la corriente eléctrica.
-                </p>
-                <ul>
-                    <li>La corriente es la misma en todos los componentes.</li>
-                    <li>El voltaje se reparte entre los elementos.</li>
-                    <li>Si un componente falla, todo el circuito se interrumpe.</li>
-                    <li>Es sencillo y fácil de construir.</li>
+                    <li>Combina serie y paralelo.</li>
+                    <li>Más eficiente.</li>
+                    <li>Uso real.</li>
+                    <li>Más complejo.</li>
                 </ul>
             </div>
 
@@ -248,7 +238,6 @@
     </p>
 
     <div class="interactivo">
-
         <div class="circuito">
             <img src="https://galanistaenredandose.wordpress.com/wp-content/uploads/2013/07/circuitos-en-serie.png?w=300">
             <input type="text" id="c1">
@@ -269,11 +258,60 @@
             <button onclick="verificar('c3','mixto','r3')">Verificar</button>
             <div class="resultado" id="r3"></div>
         </div>
+    </div>
+</section>
 
+<section>
+    <h1>Relaciona los Circuitos</h1>
+    <div class="titulo-linea"></div>
+
+    <p class="descripcion">
+        Relaciona cada tipo de circuito con su característica principal.
+    </p>
+
+    <div class="interactivo">
+        <div class="circuito">
+            <p><strong>Circuito en Serie</strong></p>
+            <select id="rel1">
+                <option value="">Selecciona</option>
+                <option value="a">La corriente se divide</option>
+                <option value="b">Si un componente falla</option>
+                <option value="c">Combina ambos</option>
+            </select>
+        </div>
+
+        <div class="circuito">
+            <p><strong>Circuito en Paralelo</strong></p>
+            <select id="rel2">
+                <option value="">Selecciona</option>
+                <option value="a">Voltaje igual</option>
+                <option value="b">Un solo camino</option>
+                <option value="c">Complejo</option>
+            </select>
+        </div>
+
+        <div class="circuito">
+            <p><strong>Circuito Mixto</strong></p>
+            <select id="rel3">
+                <option value="">Selecciona</option>
+                <option value="a">Solo casas</option>
+                <option value="b">Sencillo</option>
+                <option value="c">Serie y paralelo</option>
+            </select>
+        </div>
+    </div>
+
+    <div style="text-align:center; margin-top:20px;">
+        <button onclick="verificarRelacion()">Verificar relaciones</button>
+        <div class="resultado" id="resultadoRelacion"></div>
     </div>
 </section>
 
 <script>
+function normalizar(texto) {
+    return texto.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+}
+
 function verificar(inputId, respuestaCorrecta, resultadoId) {
     let input = document.getElementById(inputId);
     let resultado = document.getElementById(resultadoId);
@@ -284,7 +322,7 @@ function verificar(inputId, respuestaCorrecta, resultadoId) {
         return;
     }
 
-    if (input.value.toLowerCase().includes(respuestaCorrecta)) {
+    if (normalizar(input.value).includes(respuestaCorrecta)) {
         resultado.textContent = "✅ Correcto";
         resultado.style.color = "green";
     } else {
@@ -292,9 +330,28 @@ function verificar(inputId, respuestaCorrecta, resultadoId) {
         resultado.style.color = "red";
     }
 }
+
+function verificarRelacion() {
+    let r1 = document.getElementById("rel1").value;
+    let r2 = document.getElementById("rel2").value;
+    let r3 = document.getElementById("rel3").value;
+    let resultado = document.getElementById("resultadoRelacion");
+
+    if (r1 === "" || r2 === "" || r3 === "") {
+        resultado.textContent = "⚠️ Completa todas las relaciones";
+        resultado.style.color = "orange";
+        return;
+    }
+
+    if (r1 === "b" && r2 === "a" && r3 === "c") {
+        resultado.textContent = "✅ Todas las relaciones son correctas";
+        resultado.style.color = "green";
+    } else {
+        resultado.textContent = "❌ Hay relaciones incorrectas";
+        resultado.style.color = "red";
+    }
+}
 </script>
 
 </body>
 </html>
-
-
